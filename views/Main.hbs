@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+    <head>
+    	{{> head}}
+
+    	<script type="text/javascript">
+            $(function(){
+                $('#select_link').click(function(e){
+                    e.preventDefault();
+                    console.log('select_link clicked');
+
+                    var data = {}
+					form = $('#ajax-contact');
+					//data.formMessages = $('formMessages');
+					data.formData = $(form).serializeArray();
+
+					$.ajax({
+						type: 'POST',
+						data: JSON.stringify(data),
+				        contentType: 'application/json',
+                        url: 'http://localhost:3000/endpoint',
+                        success: function(data) {
+                            console.log('success');
+                            console.log(data);
+                        }
+                    });
+                });
+            });
+        </script>
+
+    </head>
+    <body>
+    	{{> header}}
+    	<h1 class="text-center">Main</h1>
+
+		<div id="form-messages"></div>
+    	<form id="ajax-contact" method="post" action="/">
+    		<div class="field">
+    			<label for="name">Name: </label>
+    			<input type="text" id="name" name="name" required>
+    		</div>
+    		<div class="field">
+    		    <label for="email">Email:</label>
+    		    <input type="email" id="email" name="email" required>
+    		</div>
+    	</form>
+   			<div class="field">
+   		    <button type="submit">Send</button>
+   		</div>
+
+    	<div id="select_div"><a href="#" id="select_link">Test</a></div>
+
+    </body>
+</html>
